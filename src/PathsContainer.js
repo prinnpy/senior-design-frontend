@@ -24,9 +24,11 @@ const PathsContainer = (props) => {
                                 })
                             }
                         })}
+                        
                     </div>
                 );
             })}
+            <a href="/" className="btn btn-primary btn-lg mb-5">Generate Code</a>
         </div>
     )
 }
