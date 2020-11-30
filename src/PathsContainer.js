@@ -7,9 +7,9 @@ const PathsContainer = (props) => {
 
     return (
         <div style={{padding: "20px"}}>
-            {tags.map(tag => {
+            {tags && tags.map(tag => {
                 return (
-                    <div style={{paddingBottom: "30px"}}>
+                    <div style={{paddingBottom: "30px", maxWidth: '900px'}}>
                         <h2 style={{fontWeight: "bold"}}>{tag.name}</h2><p>{tag.description}</p>
                         <hr/>
                         {Object.keys(paths).map(path => {
@@ -28,7 +28,6 @@ const PathsContainer = (props) => {
                     </div>
                 );
             })}
-            <a href="/" className="btn btn-primary btn-lg mb-5">Generate Code</a>
         </div>
     )
 }

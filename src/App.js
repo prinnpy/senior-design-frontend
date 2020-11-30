@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import PathsContainer from './PathsContainer';
 import firebase from './firebase';
-
+import BottomBar from './BottomBar'
 
 
 function App() {
@@ -45,7 +45,7 @@ function App() {
 
       <Jumbotron>
         <h1 style={{ fontSize: '50px', color: 'black' }}>Petstore API</h1>
-        <p>This is Perstore server. Running live.</p>
+        <p>This is Petstore server. Running live.</p>
         <div>
           <a href="/">Terms of Services</a> <br />
           <a href="/">Contact the developer</a>
@@ -53,7 +53,7 @@ function App() {
       </Jumbotron>
 
       {data.swagger && <PathsContainer tags={data.tags} paths={data.paths}/>}
-      
+      <BottomBar tags={data.tags}/>
     </div>
 
 
