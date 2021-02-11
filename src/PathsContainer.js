@@ -235,9 +235,6 @@ const PathsContainer = ({ data }) => {
           );
         })}
       </div>
-      <a href="/" className="btn btn-primary btn-lg mb-5">
-        Generate Code
-      </a>
     </div>
   );
 };
