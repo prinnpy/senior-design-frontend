@@ -16,7 +16,6 @@ const PathsContainer = ({ data }) => {
       .set({ swaggerDoc: finalData }, { merge: true });
   }, [finalData]);
 
-<<<<<<< HEAD
   //get data from the form and convert it into the correct format
   const addEndpoint = (requestType, endpointName, summary, operationID) => {
     let formatEndpointName = "/" + endpointName;
@@ -242,34 +241,5 @@ const PathsContainer = ({ data }) => {
     </div>
   );
 };
-=======
-    return (
-        <div style={{padding: "20px"}}>
-            {tags && tags.map(tag => {
-                return (
-                    <div key={'tag'+tag.name} style={{paddingBottom: "30px", maxWidth: '900px'}}>
-                        <h2 style={{fontWeight: "bold"}}>{tag.name}</h2><p>{tag.description}</p>
-                        <hr/>
-                        {Object.keys(paths).map(path => {
-                            if (String(path).includes(String(tag.name))) {
-
-                                return Object.keys(paths[path]).map(req => {
-                                    return (<Request
-                                        key={'req' + path + req}
-                                        path={path}
-                                        request={req}
-                                        requestSummary={paths[path][req].summary} />
-                                    )
-                                })
-                            }
-                        })}
-                        
-                    </div>
-                );
-            })}
-        </div>
-    )
-}
->>>>>>> ce679ae6c87c7126910409465686b4f336449f82
 
 export default PathsContainer;
