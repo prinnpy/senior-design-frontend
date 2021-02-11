@@ -6,9 +6,16 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+<<<<<<< HEAD
     "bootstrap": "^4.6.0",
     "firebase": "^7.23.0",
     "formik": "^2.2.6",
+=======
+    "axios": "^0.21.0",
+    "bootstrap": "^4.5.2",
+    "firebase": "^7.23.0",
+    "js-file-download": "^0.4.12",
+>>>>>>> ce679ae6c87c7126910409465686b4f336449f82
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^16.13.1",
