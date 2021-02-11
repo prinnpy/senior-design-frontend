@@ -211,7 +211,7 @@ const PathsContainer = ({ data }) => {
         mode="add"
       />
 
-      <div style={{ paddingBottom: "30px" }}>
+      <div style={{ marginBottom: "110px" }}>
         {Object.keys(paths).map((path) => {
           return (
             <div>
