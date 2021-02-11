@@ -1,37 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import PathsContainer from './PathsContainer';
-import firebase from './firebase';
-
-
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import PathsContainer from "./PathsContainer";
+import db from "./firebase";
 
 function App() {
-
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
 
-  useEffect(
-    () => {
-      const getData = firebase
-        .firestore()
-        .collection('test')
-        .doc('petStore')
-        .onSnapshot(
-          doc => {
-            setLoading(false);
-            setData(JSON.parse(doc.data().data))
-          },
-          err => {
-            setError(err)
-          }
-        )
-      return() => getData();
-    }, []);
-
+  useEffect(() => {
+    db.collection("api")
+      .doc("simplePetStore")
+      .onSnapshot(
+        (doc) => {
+          let data = doc.data().swaggerDoc;
+          setLoading(false);
+          setData(JSON.parse(data));
+        },
+        (err) => {
+          setError(err);
+        }
+      );
+  }, []);
 
   return (
     <div>
@@ -44,20 +37,15 @@ function App() {
       </Navbar>
 
       <Jumbotron>
-        <h1 style={{ fontSize: '50px', color: 'black' }}>Petstore API</h1>
+        <h1 style={{ fontSize: "50px", color: "black" }}>Petstore API</h1>
         <p>This is Perstore server. Running live.</p>
         <div>
           <a href="/">Terms of Services</a> <br />
           <a href="/">Contact the developer</a>
         </div>
       </Jumbotron>
-
-      {data.swagger && <PathsContainer tags={data.tags} paths={data.paths}/>}
-      
+      {data.swagger && <PathsContainer data={data} />}
     </div>
-
-
-
   );
 }
 
