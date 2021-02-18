@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Request from "./Request";
 import MyModal from "./MyModal";
 import { Button } from "react-bootstrap";
-import db from "./firebase";
+import db from "../firebase/firebase";
 
-const PathsContainer = ({ data }) => {
+const PathsContainer = ({ data, projectName }) => {
   const paths = data.paths;
   const [showModal, setShowModal] = useState(false);
   const [finalData, setFinalData] = useState(JSON.stringify(data));
@@ -12,7 +12,7 @@ const PathsContainer = ({ data }) => {
   useEffect(() => {
     //function to add to the right database
     db.collection("api")
-      .doc("simplePetStore")
+      .doc(projectName)
       .set({ swaggerDoc: finalData }, { merge: true });
   }, [finalData]);
 
