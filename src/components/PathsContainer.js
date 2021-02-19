@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Request from "./Request";
 import MyModal from "./MyModal";
-import { Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import db from "../firebase/firebase";
 
-const PathsContainer = ({ data, projectName }) => {
+const PathsContainer = ({ data, projectId }) => {
   const paths = data.paths;
   const [showModal, setShowModal] = useState(false);
   const [finalData, setFinalData] = useState(JSON.stringify(data));
@@ -12,7 +12,7 @@ const PathsContainer = ({ data, projectName }) => {
   useEffect(() => {
     //function to add to the right database
     db.collection("api")
-      .doc(projectName)
+      .doc(projectId)
       .set({ swaggerDoc: finalData }, { merge: true });
   }, [finalData]);
 
@@ -71,8 +71,6 @@ const PathsContainer = ({ data, projectName }) => {
         },
       };
     }
-
-    console.log(JSON.stringify(newPaths));
 
     //use formatJSON to add to replace the original data in for paths
     newData["paths"] = newPaths; //got the perfect format for storing into firebase
@@ -199,9 +197,16 @@ const PathsContainer = ({ data, projectName }) => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Button variant="primary" onClick={() => setShowModal(true)}>
-        + Adding New Endpoint
-      </Button>
+      <Row style={{ marginBottom: "20px" }}>
+        <Col>
+          <h1>Endpoints</h1>
+        </Col>
+        <Col align="right">
+          <Button variant="outline-dark" onClick={() => setShowModal(true)}>
+            + Add new endpoint
+          </Button>
+        </Col>
+      </Row>
 
       <MyModal
         show={showModal}
@@ -210,12 +215,11 @@ const PathsContainer = ({ data, projectName }) => {
         title="Adding Endpoint"
         mode="add"
       />
-
+      <hr style={{ marginTop: "20px", marginBottom: "20px" }} />
       <div style={{ marginBottom: "110px" }}>
         {Object.keys(paths).map((path) => {
           return (
             <div>
-              <hr style={{ marginTop: "40px", marginBottom: "20px" }} />
               <h2>
                 <strong>{path}</strong>
               </h2>
@@ -231,6 +235,7 @@ const PathsContainer = ({ data, projectName }) => {
                   />
                 );
               })}
+              <hr style={{ marginTop: "40px"}} />
             </div>
           );
         })}

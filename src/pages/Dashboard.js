@@ -16,10 +16,10 @@ const Dashboard = ({ user }) => {
   const [onGoToEndpointClicked, setOnGoToEndpointClicked] = useState(false);
   const [currentProject, setCurrentProject] = useState("");
 
-  const isGoToEndpointClicked = (isClicked, projectName) => {
+  const isGoToEndpointClicked = (isClicked, project) => {
     if (isClicked) {
       setOnGoToEndpointClicked(true);
-      setCurrentProject(projectName);
+      setCurrentProject(project);
     }
   };
 
@@ -32,32 +32,37 @@ const Dashboard = ({ user }) => {
 
   useEffect(() => {
     db.collection("api")
-      .where("userId", "==", user.uid)
-      .get()
-      .then((querySnapshot) => {
-        const documents = [];
-        querySnapshot.forEach((doc) => {
-          const document = {};
-          document["projectName"] = doc.id;
-          document["data"] = doc.data();
-          documents.push(document);
-        });
-        setData(documents);
-      })
-      .catch((err) => {
-        console.log("error getting documents: ", err);
-      });
+      .orderBy("timestamp", "desc")
+      .onSnapshot(
+        (querySnapshot) => {
+          const documents = [];
+          querySnapshot.forEach((doc) => {
+            if (doc.data().userId === user.uid) {
+              const document = {};
+              document["id"] = doc.id;
+              document["projectName"] = doc.data().projectName;
+              document["data"] = doc.data();
+              documents.push(document);
+            }
+          });
+          setData(documents);
+        },
+        (err) => {
+          console.log("Error: ", err);
+        }
+      );
   }, []);
 
   return (
     <div>
       {onGoToEndpointClicked ? (
         data.map((project) => {
-          if (project.projectName === currentProject) {
+          if (project.id === currentProject.id) {
             return (
               <Endpoints
                 userName={user.displayName}
-                projectName={currentProject}
+                projectName={currentProject.projectName}
+                projectId={currentProject.id}
                 isBackClicked={isBackClicked}
               />
             );
@@ -75,9 +80,9 @@ const Dashboard = ({ user }) => {
               ease.
             </p>
           </Jumbotron>
-          {console.log(data)}
           {data && (
             <ProjectsContainer
+              userId={user.uid}
               data={data}
               isGoToEndpointClicked={isGoToEndpointClicked}
             />

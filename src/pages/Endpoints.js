@@ -7,26 +7,23 @@ import Button from "react-bootstrap/Button";
 import BottomBar from "../components/BottomBar";
 import db from "../firebase/firebase";
 
-const Endpoints = ({ isBackClicked, userName, projectName }) => {
+const Endpoints = ({ isBackClicked, userName, projectId, projectName }) => {
   const goBack = () => {
     isBackClicked(true);
   };
 
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
 
   useEffect(() => {
     db.collection("api")
-      .doc(projectName)
+      .doc(projectId)
       .onSnapshot(
         (doc) => {
           let data = doc.data().swaggerDoc;
-          setLoading(false);
           setData(JSON.parse(data));
         },
         (err) => {
-          setError(err);
+          console.log("Error: ", err);
         }
       );
   }, []);
@@ -40,7 +37,7 @@ const Endpoints = ({ isBackClicked, userName, projectName }) => {
         </Button>
         <h1 style={{ fontSize: "50px", color: "black" }}>{projectName}</h1>
       </Jumbotron>
-      {data.swagger && <PathsContainer data={data} projectName={projectName}/>}
+      {data.swagger && <PathsContainer data={data} projectId={projectId}/>}
       <BottomBar tags={data.tags} />
     </div>
   );
