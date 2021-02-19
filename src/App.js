@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
-import Endpoints from "./pages/Endpoints";
+import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
@@ -28,16 +28,15 @@ function App() {
   }, []);
 
   return (
-  <div>
-    {isSignedIn ? (
-      <Dashboard user={firebase.auth().currentUser}/>
-    ) : (
-      <StyledFirebaseAuth
-        uiConfig={uiConfig}
-        firebaseAuth={firebase.auth()}
-      />
-    )}
-  </div>
+    <div>
+      {isSignedIn ? (
+        <Dashboard user={firebase.auth().currentUser} />
+      ) : (
+        <Auth uiConfig={uiConfig}
+          firebaseAuth={firebase.auth()}
+        />
+      )}
+    </div>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Request from "./Request";
 import MyModal from "./MyModal";
-import { Row, Col, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import db from "../firebase/firebase";
 
 const PathsContainer = ({ data, projectId }) => {
@@ -197,16 +197,13 @@ const PathsContainer = ({ data, projectId }) => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Row style={{ marginBottom: "20px" }}>
-        <Col>
-          <h1>Endpoints</h1>
-        </Col>
-        <Col align="right">
-          <Button variant="outline-dark" onClick={() => setShowModal(true)}>
-            + Add new endpoint
-          </Button>
-        </Col>
-      </Row>
+      <div style={{ marginBottom: "30px" }}>
+        <h1>Endpoints</h1>
+        <hr style={{ marginTop: "20px", marginBottom: "20px" }} />
+        <Button variant="outline-dark" onClick={() => setShowModal(true)}>
+          + Add new endpoint
+        </Button>
+      </div>
 
       <MyModal
         show={showModal}
@@ -215,7 +212,7 @@ const PathsContainer = ({ data, projectId }) => {
         title="Adding Endpoint"
         mode="add"
       />
-      <hr style={{ marginTop: "20px", marginBottom: "20px" }} />
+      
       <div style={{ marginBottom: "110px" }}>
         {Object.keys(paths).map((path) => {
           return (
@@ -235,7 +232,7 @@ const PathsContainer = ({ data, projectId }) => {
                   />
                 );
               })}
-              <hr style={{ marginTop: "40px"}} />
+              <hr style={{ marginTop: "40px" }} />
             </div>
           );
         })}

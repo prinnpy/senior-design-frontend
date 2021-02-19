@@ -73,7 +73,7 @@ const Dashboard = ({ user }) => {
           <Topbar userName={user.displayName} />
           <Jumbotron>
             <h1 style={{ fontSize: "50px", color: "black" }}>
-              Hi there, {user.displayName}
+              Hello {user.displayName} 👋
             </h1>
             <p>
               Welcome to API builder. The best place to create your APIs with

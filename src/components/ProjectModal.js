@@ -26,6 +26,7 @@ const MyModal = (props) => {
           editProject={props.editProject}
           mode={props.mode}
           initValues={initValues}
+          projectId={props.projectId}
         />
       </Modal.Body>
     </Modal>

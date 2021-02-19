@@ -5,7 +5,6 @@ import * as Yup from "yup";
 
 const MyForm = (props) => {
   const { projectName } = props.initValues;
-  const stringInitValue = JSON.stringify(props.initValues);
 
   const validationSchema = Yup.object().shape({
     projectName: Yup.string().required("*Endpoint name is required"),
@@ -29,7 +28,7 @@ const MyForm = (props) => {
             );
           } else {
             props.editProject(
-              stringInitValue,
+              props.projectId,
               values.projectName
             );
           }

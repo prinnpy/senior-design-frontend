@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
+import ProjectModal from "./ProjectModal";
 
-import Endpoints from "../pages/Endpoints";
-import PathsContainer from "./PathsContainer";
+const Projects = ({
+  project,
+  isGoToEndpointClicked,
+  deleteProject,
+  editProject,
+}) => {
+  const onGoToEndpointCLicked = () => {
+    isGoToEndpointClicked(true, project);
+  };
 
-const Projects = ({ project, isGoToEndpointClicked }) => {
-
-    const onGoToEndpointCLicked = () => {
-        isGoToEndpointClicked(true, project)
-    }
-
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <Card style={{ marginBottom: "20px", border: "none" }}>
@@ -56,7 +59,7 @@ const Projects = ({ project, isGoToEndpointClicked }) => {
             </svg>{" "}
             Go to endpoints
           </Button>
-          <Button variant="secondary" style={{ marginRight: "10px" }}>
+          <Button variant="secondary" onClick={() => setShowModal(true)} style={{ marginRight: "10px" }} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -69,7 +72,16 @@ const Projects = ({ project, isGoToEndpointClicked }) => {
             </svg>{" "}
             Edit
           </Button>
-          <Button variant="danger">
+          <ProjectModal
+            show={showModal}
+            onHide={() => setShowModal(false)}
+            editProject={editProject}
+            title="Edit Project"
+            mode="edit"
+            projectName={project.projectName}
+            projectId={project.id}
+          />
+          <Button variant="danger" onClick={() => deleteProject(project.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
