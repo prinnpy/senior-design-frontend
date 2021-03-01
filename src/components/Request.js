@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import MyModal from "./MyModal";
+import Functionalities from './Functionalities'
 
 const Request = (props) => {
   const {
@@ -15,6 +16,7 @@ const Request = (props) => {
 
   return (
     <Card style={{ marginBottom: "20px", border: "none" }}>
+
       {request === "post" && (
         <div>
           <Card.Header
@@ -192,6 +194,8 @@ const Request = (props) => {
           >
             <Card.Title>{path}</Card.Title>
             <Card.Text>{requestSummary}</Card.Text>
+            <Functionalities/>
+
           </Card.Body>
           <Card.Footer
             style={{
@@ -270,6 +274,7 @@ const Request = (props) => {
           >
             <Card.Title>{path}</Card.Title>
             <Card.Text>{requestSummary}</Card.Text>
+
           </Card.Body>
           <Card.Footer
             style={{
@@ -325,9 +330,11 @@ const Request = (props) => {
                 />
               </svg> Delete
             </Button>
+
           </Card.Footer>
         </div>
       )}
+
     </Card>
   );
 };
