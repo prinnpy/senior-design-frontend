@@ -38,7 +38,7 @@ const Endpoints = ({ isBackClicked, userName, projectId, projectName }) => {
         <h1 style={{ fontSize: "50px", color: "black" }}>{projectName}</h1>
       </Jumbotron>
       {data.swagger && <PathsContainer data={data} projectId={projectId}/>}
-      <BottomBar tags={data.tags} />
+      <BottomBar tags={data.tags} apiID={projectId} />
     </div>
   );
 };
