@@ -58,6 +58,7 @@ const ProjectsContainer = ({ userId, data, isGoToEndpointClicked }) => {
       {data.map((project) => {
         return (
           <Projects
+          key={"project" + project.id}
             project={project}
             isGoToEndpointClicked={isGoToEndpointClicked}
             deleteProject={deleteProject}

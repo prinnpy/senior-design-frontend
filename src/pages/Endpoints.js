@@ -13,6 +13,7 @@ const Endpoints = ({ isBackClicked, userName, projectId, projectName }) => {
   };
 
   const [data, setData] = useState({});
+  const [functionalities, setFunctionalities] = useState({});
 
   useEffect(() => {
     db.collection("api")
@@ -21,6 +22,7 @@ const Endpoints = ({ isBackClicked, userName, projectId, projectName }) => {
         (doc) => {
           let data = doc.data().swaggerDoc;
           setData(JSON.parse(data));
+          setFunctionalities(doc.data().functionalities)
         },
         (err) => {
           console.log("Error: ", err);
@@ -37,7 +39,7 @@ const Endpoints = ({ isBackClicked, userName, projectId, projectName }) => {
         </Button>
         <h1 style={{ fontSize: "50px", color: "black" }}>{projectName}</h1>
       </Jumbotron>
-      {data.swagger && <PathsContainer data={data} projectId={projectId}/>}
+      {data.swagger && <PathsContainer data={data} projectId={projectId} fns={functionalities} />}
       <BottomBar tags={data.tags} apiID={projectId} />
     </div>
   );

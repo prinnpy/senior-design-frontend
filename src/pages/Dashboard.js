@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Topbar from "../components/Topbar";
-import ProjectsContainer from "../components/ProjectsContainer";
-
+import ProjectsContainer from '../components/ProjectsContainer'
 import Endpoints from "./Endpoints";
 
 import db from "../firebase/firebase";
@@ -54,12 +53,13 @@ const Dashboard = ({ user }) => {
   }, []);
 
   return (
-    <div>
+    <div key={'dashboard1'}>
       {onGoToEndpointClicked ? (
         data.map((project) => {
           if (project.id === currentProject.id) {
             return (
               <Endpoints
+                key={'ep' + project.id}
                 userName={user.displayName}
                 projectName={currentProject.projectName}
                 projectId={currentProject.id}
@@ -69,7 +69,7 @@ const Dashboard = ({ user }) => {
           }
         })
       ) : (
-        <div>
+        <div key={'dashboard2' + user.displayName}>
           <Topbar userName={user.displayName} />
           <Jumbotron>
             <h1 style={{ fontSize: "50px", color: "black" }}>
@@ -80,13 +80,13 @@ const Dashboard = ({ user }) => {
               ease.
             </p>
           </Jumbotron>
-          {data && (
+          {data && 
             <ProjectsContainer
               userId={user.uid}
               data={data}
               isGoToEndpointClicked={isGoToEndpointClicked}
             />
-          )}
+          }
         </div>
       )}
     </div>

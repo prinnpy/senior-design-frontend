@@ -9,7 +9,7 @@ const MyModal = (props) => {
     summary: props.summary,
     operationID: props.operationId,
   };
-
+  const {fns} = props;
   return (
     <Modal
       {...props}
@@ -29,6 +29,10 @@ const MyModal = (props) => {
           editEndpoint={props.editEndpoint}
           mode={props.mode}
           initValues={initValues}
+          projectId={props.apiId}
+          fns={fns}
+
+
         />
       </Modal.Body>
     </Modal>

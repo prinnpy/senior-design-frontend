@@ -4,7 +4,7 @@ import MyModal from "./MyModal";
 import { Button } from "react-bootstrap";
 import db from "../firebase/firebase";
 
-const PathsContainer = ({ data, projectId }) => {
+const PathsContainer = ({ data, projectId, fns }) => {
   const paths = data.paths;
   const [showModal, setShowModal] = useState(false);
   const [finalData, setFinalData] = useState(JSON.stringify(data));
@@ -211,24 +211,29 @@ const PathsContainer = ({ data, projectId }) => {
         addEndpoint={addEndpoint}
         title="Adding Endpoint"
         mode="add"
+        fns={fns}
       />
-      
+
       <div style={{ marginBottom: "110px" }}>
         {Object.keys(paths).map((path) => {
           return (
-            <div>
+            <div key={"pc" + paths[path]}>
               <h2>
                 <strong>{path}</strong>
               </h2>
               {Object.keys(paths[path]).map((req) => {
                 return (
                   <Request
+                    key={paths[path][req].operationId}
                     path={path}
                     request={req}
                     requestSummary={paths[path][req].summary}
                     operationId={paths[path][req].operationId}
                     deleteEndpoint={deleteEndpoint}
                     editEndpoint={editEndpoint}
+                    projectId={projectId}
+                    fns={fns}
+
                   />
                 );
               })}
